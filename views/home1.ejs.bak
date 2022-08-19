@@ -1,0 +1,87 @@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" >       
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script> 
+<script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+<section class="ftco-section">
+    <div class="">
+        <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Sneaky</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+          </button>
+          <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="http://localhost:9999/allusers" class="nav-link">Users</a></li>
+                <li class="nav-item"><a href="javascript:void(0)" class="nav-link" onclick="logginOut()">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<!-- END nav -->
+</div>
+
+</section>
+<!-- <a href="http://localhost:9999/logout"><h2>LOGOUT</h2></a>
+<a href="http://localhost:9999/allusers" style="text-decoration: none;">Users available</a> -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
+<link
+  href="css/style.css"
+  rel="stylesheet"
+/>  
+<!-- MDB -->
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+       <div class="row">
+          <div class="col-sm-6">
+             <div class="list list-row block">
+                <% for(i=0;i< elements.length;i++){ %>                                        
+
+                <div class="list-item" data-id="19">
+                    <div><a href="#" data-abc="true"><span class="w-48 avatar gd-warning">S</span></a></div>
+                    <div class="flex">
+                        <a href="#" class="item-author text-color" data-abc="true"><%= array[i] %></a>
+                        <div class="item-except text-muted text-sm h-1x"><%= msg_array[i] %></div>
+                    </div>
+                    <div class="no-wrap" style="position: absolute;right: 0;">
+                        <div class="item-date text-muted text-sm d-md-block">13/12 18</div>
+                    </div>
+                    </div>
+                    <% }%>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  <script>
+    const socket = io();
+    var mine_id='<%= sessioned_id %>';
+socket.emit('online',mine_id);
+
+function logginOut(){
+  socket.emit('logout',mine_id);
+   window.location.href="http://localhost:9999/logout";
+}
+  </script>

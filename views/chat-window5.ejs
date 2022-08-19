@@ -1,0 +1,311 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" >      
+    <!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.css"
+  rel="stylesheet"
+/>  
+<!-- MDB -->
+<style>
+ #chat2 .form-control {
+border-color: transparent;
+
+}
+
+#chat2 .form-control:focus {
+border-color: transparent;
+box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+body {
+  font-family: 'Rubik', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+div.container {
+  height: 100vh;
+  width: 93.5%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.pop-up {
+  position: relative;
+  left: 128px;
+  bottom: 68px;
+  width: 120px;
+  height: 80px;
+  background-color: #3795f6;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+div.pop-up p {
+  position: relative;
+  bottom: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+div.arrow-down {
+  position: relative;
+  top: 78px;
+  left: 45px;
+  width: 0; 
+  height: 0; 
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  
+  border-top: 15px solid #3795f6;
+}
+
+div.online-indicator {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  
+  background-color: #0fcc45;
+  border-radius: 50%;
+  
+  position: relative;
+}
+span.blink {
+  display: block;
+  width: 15px;
+  height: 15px;
+  
+  background-color: #0fcc45;
+  opacity: 0.7;
+  border-radius: 50%;
+  
+  animation: blink 1s linear infinite;
+}
+
+h6{
+  
+  display: inline;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    text-shadow: 0px 3px 6px rgb(150 150 150 / 20%);
+    position: relative;
+    cursor: pointer;
+    right: 10px;
+    bottom: 1px;
+
+}
+
+h2.online-text {
+  display: inline;
+  
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  text-shadow: 0px 3px 6px rgba(150, 150, 150, 0.2);
+  
+  position: relative;
+  cursor: pointer;
+}
+
+/*Animations*/
+
+@keyframes blink {
+  100% { transform: scale(2, 2); 
+          opacity: 0;
+        }
+}
+.gfhgf{
+    animation: iconDotScale infinite 1333ms;
+    background: #1e8e3e;
+    border-radius: 50%;
+    height: 6px;
+    margin: 2px;
+    width: 6px;
+}
+
+.gfhgf:nth-child(2){
+  animation-delay: 1s;
+}
+
+.gfhgf:nth-child(3){
+  animation-delay: 1.5s;
+}
+
+.SncUne{
+    display: flex;
+    justify-content: center;
+    margin-right: 15px;
+    width: 32px;
+}  
+
+@keyframes iconDotScale{0%{transform:none;animation-timing-function:cubic-bezier(0.4,0.0,0.2,1)}18.75%{transform:scale(1.25);animation-timing-function:cubic-bezier(0.4,0.0,0.2,1)}37.5%{transform:scale(0.85);animation-timing-function:cubic-bezier(0.4,0.0,0.2,1)}50%{transform:none;animation-timing-function:cubic-bezier(0.4,0.0,0.2,1)}}.bNfiFb{align-items:center;background-color:var(--background-color);box-sizing:border-box;display:none;flex-shrink:0;margin-left:auto;margin-right:auto;max-width:1024px;min-height:20px;padding-left:24px;width:100%}.bNfiFb.qs41qe{display:none}.bNfiFb.qs41qe:not(.eLNT1d){display:flex}.SncUne{display:flex;justify-content:center;margin-right:15px;width:32px}.MDxAdd{animation:iconDotScale infinite 1333ms;background:#1e8e3e;border-radius:50%;height:6px;margin:2px;width:6px}
+
+.typing-class{
+  display: flex;
+  align-items: baseline;
+  padding: 0px 20px;
+}
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.2.0/mdb.min.js" ></script>
+<section style="background-color: #eee;">
+  <div class="">
+    <div class="">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+
+        <div class="card" id="chat2" style="height:100%;">
+          <div class="card-header d-flex justify-content-between align-items-center p-3">
+            <h5 class="mb-0" id="usersName"></h5><div class="" id="statusUser" style="position: relative;right: 50px;top: 3px;display:none;">
+              <div class="online-indicator" id="online-indicator">
+                <span class="blink" id="blink"></span>
+              </div>
+              <h6 class="online-text" id="online-text">Online</h6>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark">SNEAKY</button>
+          </div>
+          <div class="card-body" data-mdb-perfect-scrollbar="true" style="overflow-y:scroll;" id="messages">
+<div id="end"></div>
+          </div>
+          <div class="typing-class" id="typingmsgs" style="display: none;">
+<div class="SncUne">
+  <div class="gfhgf"></div>  
+  <div class="gfhgf"></div>  
+  <div class="gfhgf"></div>      
+</div><div class="NamesType"></div></div>
+          <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3" style="height: 65px;">
+            <img src="../images/woman.jpg"
+              alt="avatar 3" style="width: 40px; height: 100%;">
+            <input type="text" class="form-control form-control-lg" id="send_message"
+              placeholder="Type message">              
+            <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
+            <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
+            <a class="ms-3" href="javascript:void(0)" onclick="sending()"><i class="fas fa-paper-plane"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+<script>
+  var array_dis=[];
+            const messages = document.getElementById('messages');
+            function scrollToBottom() {
+  messages.scrollTop = messages.scrollHeight;
+}
+            const socket = io();
+            var mine_id='<%= mine %>';
+            var others_main_id='<%= otherid %>';
+            socket.on('connected',function(datas){
+                array_sockets=[mine_id,datas];
+                array_dis=[mine_id,others_main_id];
+                socket.on('status',function(data){
+                    
+                })
+                // setInterval(function(){                  
+                // }, 2000);              
+                var id="online";
+                socket.emit('online',mine_id);
+                socket.emit('store',array_sockets);
+                socket.emit('get_msg',array_dis);
+                  socket.on('statuss',function(data){
+                    if(data==1){
+                      document.getElementById('statusUser').style.display='block';
+                      $('#online-indicator').attr('style','background-color:#0fcc45');
+                      $('#blink').attr('style','background-color:#0fcc45');
+                      $('#online-text').html('Online');
+                    }else{
+                      document.getElementById('statusUser').style.display='block';
+                      $('#online-indicator').attr('style','background-color:#dc3545');
+                      $('#blink').attr('style','background-color:#dc3545');
+                      $('#online-text').html('Offline');
+                    }                    
+                })
+                socket.emit('name',others_main_id);
+                socket.on('usersname',function(data){
+                  $('#usersName').html(data);
+                  $('.NamesType').html(data+' is typing');                  
+                });
+            })
+            // setInterval(function() {
+              socket.emit('seen',array_dis);
+            // }, 2000);            
+
+            var msgtype='yes';
+var notmsgtype='no';
+var typingStatusUsers=[mine_id,others_main_id,msgtype];
+var NottypingStatusUsers=[mine_id,others_main_id,notmsgtype];
+
+function started(){
+  socket.emit('typing',typingStatusUsers);  
+}
+function typeNew(){
+  socket.emit('typing',NottypingStatusUsers);
+}
+var typeMain='';
+$('#send_message').keypress((e)=>{
+  if(e.which!=13){    
+    started();
+    if(typeMain!=''){
+      clearTimeout(typeMain);
+    }
+ typeMain=  setTimeout(typeNew, 2000); 
+  }
+})
+
+socket.on('display',function(data){
+  if(data=='typing'){
+  $('#typingmsgs').show();
+  }else{
+    $('#typingmsgs').hide();
+  }
+})
+
+                function sending(){
+                    var other='<%= otherid %>';
+                    var user_id='<%= mine %>';
+                    var mesg=$('#send_message').val();                    
+                    $('#messages').append('<div class="d-flex flex-row justify-content-end"><div><p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">'+mesg+'</p></div><img src="../images/woman.jpg" alt="avatar 1" style="width: 45px; height: 100%;"></div>');
+                     var details={user_id,other,mesg};
+                    socket.emit('send_message',details);
+                    $('#send_message').val('');
+                    socket.emit('typing',NottypingStatusUsers);
+                    scrollToBottom();
+                }
+                socket.on('msg_received',function(data){
+                  console.log(data);
+                        $('#messages').append(data);
+                        scrollToBottom();
+                    })
+                socket.on('dis',function(data){
+                    $('#messages').append(data);
+                    scrollToBottom();
+                })
+                scrollToBottom();
+
+            </script>

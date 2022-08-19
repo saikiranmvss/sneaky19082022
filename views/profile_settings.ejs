@@ -1,0 +1,133 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" >       
+        <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>             
+    <!-- <divnk href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->    
+    <!-- <divnk href="https://cdn.jsdedivvr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJdivm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <!-- <divnk rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/divbs/font-awesome/6.1.1/css/all.min.css" >     -->
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">   -->
+    <link rel="stylesheet" href="css/styles2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+        </head>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/divbs/socket.io/3.0.3/socket.io.js"></script> -->
+  <script>
+  
+  </script>  
+  <body style="margin:0;">
+   <!-- <img src="https://wallpaperaccess.com/full/731608.jpg" width="400"> -->
+   <div class="main-back">
+   <div class="prof-container">
+      <div class="img-border" style="border: 5px solid rgb(255 255 255);border-radius: 60px;">
+   <img src="images/<%= user_picture %>" width="100" height="100" style="border-radius: 60px;">
+</div>
+<h4 class="name">john Doe</h4>
+   </div>
+   </div>
+<div class="tile-items">
+<div class="tiles" onclick="prof_edit()"><i class='far fa-edit'></i><p class="tile-name">Edit profile</p><i class="fa fa-angle-right"></i></div>
+<div class="tiles"><i class="fa fa-gear"></i><p class="tile-name">Settings</p><i class="fa fa-angle-right"></i></div>
+<div class="tiles"><i class="fa fa-lock"></i><p class="tile-name">Change Password</p><i class="fa fa-angle-right"></i></div>
+<div class="tiles" onclick="logginOut()"><i class="fa fa-sign-out"></i><p class="tile-name">Logout</p><i class="fa fa-angle-right"></i></div>
+</div>
+       <!-- <a href="#" class="nav_logo">Paloma</a> -->
+       <!-- <img src="images/logo.png" alt="" class="nav__img"> -->
+       <div class="nav_menu" id="nav-menu">
+           <ul class="nav_list">
+               <!-- <li class="nav__item">
+                   <a href="#home" class="nav__link active-link">
+                       <i class='bx bx-home-alt nav__icon'></i>
+                       <span class="nav__name">Home</span>
+                   </a>
+               </li> -->              
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/homepage" class="nav_link">
+                       <i class='bx bx-message-square-detail nav_icon'></i>
+                       <span class="nav_name">Chat</span>
+                   </a>
+               </li>
+ 
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/allusers" class="nav_link">
+                       <i class='bx bx-book-alt nav_icon'></i>
+                       <span class="nav_name">Users</span>
+                   </a>
+               </li>
+ 
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/friends" class="nav_link">
+                       <i class='bx bx-briefcase-alt nav_icon'></i>
+                       <span class="nav_name">Friends</span>
+                   </a>
+               </li>
+ 
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/profile_page" class="nav_link active-link">
+                       <i class='bx bx-user nav_icon'></i>
+                       <span class="nav_name">Profile</span>
+                   </a>
+               </li>
+           </ul>
+       </div>
+<style>
+       
+.tile-items{
+    color: black;
+}
+
+   .tile-name{      
+    padding-top: 30px;
+      width:50%; 
+   }
+      
+      .tiles{      
+      display: flex;
+      max-width: 100%;
+      max-height: 100%;
+      justify-content: space-around;
+      font-size: 20;
+      font-weight: 600;
+      align-items: baseline;     
+      padding-top: 15px; 
+   }
+   
+
+   .main-back{
+      background: url('https://wallpaperaccess.com/full/731608.jpg');
+      height: 270px;
+   }
+   
+   .name{
+      color: rgb(255 255 255);      
+    text-align: center;
+    font-size: large;
+
+   }
+   
+   .prof-container{width: 100%;height: 100%;display: inline-grid;padding: 50px;align-items: center;justify-content: center;};
+   </style>
+   <script>
+        const socket = io();
+    var mine_id='<%= sessioned_id %>';
+socket.emit('online',mine_id);  
+
+function prof_edit(){
+// $.ajax({
+//     type:'post',
+//     data:{mine_id:mine_id},
+//     url:'http://<%= servermain %>:9999/edit_profile',
+    // succes:function(data){
+        window.location.href='http://<%= servermain %>:9999/edit_profile';
+    }
+// })
+// }
+
+    function logginOut(){
+  socket.emit('logout',mine_id);
+   window.location.href="http://<%= servermain %>:9999/logout";
+}
+   </script>
+  </body>

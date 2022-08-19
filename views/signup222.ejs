@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>Signup</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="formdiv" style="display: table-caption;" >
+       <form action="">
+<label for="name">Name</label>
+           <input type="text" id="names">
+           <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+            <label for="password">password</label>
+           <input type="password" id="password" >
+           <label for="Phone">Phone Number</label>
+           <input type="tel" name="phone" id="phone">
+           <input type="file" id="file" name="file">
+           <div id="fileerr" style="display:none">please upload your picture</div>
+           <label for="address">address</label>
+           <textarea name="address" id="address" cols="30" rows="10"></textarea>
+           <input type="button" id="signup" value="signup" onclick="signups()">
+           <a href="http://localhost:9999/loginpage"><input type="button" name="login" id="login" value="login"></a>
+       </form> 
+        </div>
+       <script>
+        function signups(){
+            var name=$('#names').val();
+            var email=$('#email').val();
+            var password=$('#password').val();
+            var phone=$('#phone').val();
+            var file=$('#file').prop('files')[0];
+            var address=$('#address').val();
+
+            if(name==''||email==""||password==''||phone==''||address==''||file==undefined){
+                if(name==''){
+                    $('#names').attr('style','border:2px solid red');
+                }else{
+                    $('#names').attr('style','');
+                }
+                if(email==''){
+                    $('#email').css('border','2px solid red');
+                }else{
+                    $('#email').css('border','');
+                }
+                if(password==''){
+                    $('#password').css('border','2px solid red');
+                }else{
+                    $('#password').css('border','');
+                }
+                if(phone==''){
+                    $('#phone').css('border','2px solid red');
+                }else{
+                    $('#phone').css('border','');
+                }
+                if(address==''){
+                    $('#fileerr').show();
+                }else{
+                    $('#fileerr').hide();
+                }
+                if(file=='undefined'){
+                    $('#name').css('border','2px solid red');
+                }else{
+                    $('#name').css('border','');
+                }
+            
+            }else{
+                var formdata=new FormData();
+                formdata.append('name',name);
+                formdata.append('email',email);
+                formdata.append('password',password);
+                formdata.append('phone',phone);
+                formdata.append('address',address);
+                formdata.append('files',file);
+
+                $.ajax({
+                    type:'post',
+                    url:'http://localhost:9999/signup',
+                    data:formdata,
+                    contentType:false,
+                    processData:false,
+                    success:function(data){
+                        if(data.msg=='success'){
+                            window.location.href="http://localhost:9999/loginpage";
+                        }
+                    }
+                })
+            }
+
+        }
+       </script>
+    </body>
+</html>

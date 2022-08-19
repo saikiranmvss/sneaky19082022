@@ -1,0 +1,83 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.3/socket.io.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<link  href="css/style.css"  rel="stylesheet"/>  
+<link rel="stylesheet" href="css/styles2.css">
+<header class="header" id="header">
+   <nav class="nav container">
+       <a href="#" class="nav_logo">Paloma</a>
+       <!-- <img src="images/logo.png" alt="" class="nav__img"> -->
+       <div class="nav_menu" id="nav-menu">
+           <ul class="nav_list">
+               <!-- <li class="nav__item">
+                   <a href="#home" class="nav__link active-link">
+                       <i class='bx bx-home-alt nav__icon'></i>
+                       <span class="nav__name">Home</span>
+                   </a>
+               </li> -->              
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/homepage" class="nav_link">
+                       <i class='bx bx-message-square-detail nav_icon'></i>
+                       <span class="nav_name">Chat</span>
+                   </a>
+               </li>
+ 
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/allusers" class="nav_link active-link">
+                       <i class='bx bx-book-alt nav_icon'></i>
+                       <span class="nav_name">Users</span>
+                   </a>
+               </li>
+ 
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/friends" class="nav_link">
+                       <i class='bx bx-briefcase-alt nav_icon'></i>
+                       <span class="nav_name">Friends</span>
+                   </a>
+               </li>
+ 
+               <li class="nav_item">
+                   <a href="http://<%= servermain %>:9999/profile_page" class="nav_link">
+                       <i class='bx bx-user nav_icon'></i>
+                       <span class="nav_name">Profile</span>
+                   </a>
+               </li>
+           </ul>
+       </div>
+   </nav>
+ </header>
+     <div class="page-content page-container" id="page-content">
+        <div class="">
+           <div class="">
+              <div class="">
+                 <div class="list list-row block">
+                    <% if (users.length) { %>
+                        <% for(i=0;i< users.length;i++){ %>                                  
+    
+                    <div class="list-item" data-id="19">
+                        <!-- <div><a href="#" data-abc="true"><span class="w-48 avatar gd-warning">S</span></a></div> -->
+                        <div><img src="images/<%= users[i].user_pic %>" style="width: 50px;height: 48px;border-radius: 60px;"></div>
+                        <div class="flex">
+                            <a href="javascript:void(0)" class="item-author text-color" onclick="chatting('<%= users[i].user_id %>')" data-abc="true"><%= users[i].name %></a>                            
+                        </div>
+                        <div class="no-wrap" style="position: absolute;right: 0;">
+                            <div class="item-date text-muted text-sm d-md-block">13/12 18</div>
+                        </div>
+                        </div>                        
+        <%  } } %>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     <script>
+        //   var socket = io.connect('http://192.168.10.6:9999/allusers');
+         function chatting(id){            
+    window.location.href="http://<%= servermain %>:9999/chat-page/"+id;
+         }
+         
+    const socket = io();
+    var mine_id='<%= sessioned_id %>';
+socket.emit('online',mine_id);
+     </script>
